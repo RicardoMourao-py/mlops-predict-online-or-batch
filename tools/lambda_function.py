@@ -46,12 +46,6 @@ if lambda_exists:
         FunctionName=lambda_name,
         ImageUri=image_latest
     )
-
-    # Atualizar a configuração da função (variáveis de ambiente)
-    lambda_client.update_function_configuration(
-        FunctionName=lambda_name,
-        Environment={"Variables": environment_variables}
-    )
     print("FUNÇÃO ATUALIZADA !!!")
 
 else:
@@ -63,6 +57,7 @@ else:
         Role=lambda_role_arn,
         Timeout=60,  # Optional: function timeout in seconds
         MemorySize=256,  # Optional: function memory size in megabytes
+        Environment={"Variables": environment_variables}
     )
     print("NOVA FUNÇÃO CRIADA !!!")
 
