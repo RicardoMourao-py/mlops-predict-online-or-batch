@@ -18,6 +18,11 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
+
+      - name: Check Archives
+        run: |
+          ls -la \
+          pwd
   deploy-to-aws:
     needs: build-and-test
     runs-on: ubuntu-latest
