@@ -27,6 +27,7 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_LAMBDA_ROLE_ARN: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      TOKEN_FASTAPI: ${{ secrets.TOKEN_FASTAPI }}
     steps:
 
       - name: Checkout code
@@ -38,8 +39,8 @@ jobs:
           python-version: '3.10'
       
       - name: Write Token
-        run: |
-          ${{ secrets.TOKEN_FASTAPI }} >> token.txt
+      - run: |
+          echo $TOKEN_FASTAPI > token.txt
 
       - name: Docker Build
         run: |
@@ -47,11 +48,11 @@ jobs:
 
       - name: Docker Tag
         run: |
-          docker tag mlops-batch-online:main ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/mlops-batch-online:latest
+          docker tag mlops-batch-online:main $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/mlops-batch-online:latest
 
       - name: Docker Push
         run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/mlops-batch-online:latest
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION }}.amazonaws.com/mlops-batch-online:latest
 
       - name: Deploy Lambda
         run: python tools/lambda_function.py
