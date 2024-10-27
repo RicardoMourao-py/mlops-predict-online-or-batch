@@ -92,6 +92,6 @@ async def predict_batch(user=Depends(validate_token)):
 
     ![Arquitetura Batch](img/arquitetura_mlops.png)
     """
-    return "TO DO"
+    return "TO DO: Implementar ainda"
 # Adaptador Mangum para AWS Lambda
 handler = Mangum(app)
