@@ -29,7 +29,7 @@ async def load_ml_models():
     ml_models["models"] = load_model()
 
 def get_username_for_token(token):
-    if token == os.getenv('TOKEN_FASTAPI'):
+    if token == "abc123":
         return "pedro1"
     return None
 
