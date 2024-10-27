@@ -59,7 +59,7 @@ jobs:
         
       - name: Write Token
         run: |
-          echo $TOKEN_FASTAPI > token.txt
+          echo $TOKEN_FASTAPI > mlops-predict-online-or-batch/token.txt
 
       - name: Docker Build
         run: |
