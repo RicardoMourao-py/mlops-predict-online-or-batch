@@ -27,10 +27,9 @@ def load_model():
 async def load_ml_models():
     ml_models["ohe"] = load_encoder()
     ml_models["models"] = load_model()
-    ml_models["token"] = os.getenv('TOKEN_FASTAPI')
 
 def get_username_for_token(token):
-    if token == ml_models["token"]:
+    if token == os.getenv('TOKEN_FASTAPI'):
         return "pedro1"
     return None
 
