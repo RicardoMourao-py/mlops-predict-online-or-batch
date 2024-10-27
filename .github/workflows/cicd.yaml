@@ -21,7 +21,7 @@ jobs:
 
       - name: Check Archives
         run: |
-          ls -la \
+          ls -la
           pwd
   deploy-to-aws:
     needs: build-and-test
