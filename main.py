@@ -6,9 +6,6 @@ from mangum import Mangum
 from fastapi.staticfiles import StaticFiles
 import pickle
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 app = FastAPI()
 app.mount("/img", StaticFiles(directory="img"), name="img")
@@ -32,7 +29,7 @@ async def load_ml_models():
     ml_models["models"] = load_model()
 
 def get_username_for_token(token):
-    expected = os.getenv("TOKEN_FASTAPI")
+    expected = os.environ.get("TOKEN_FASTAPI")
     if token == expected:
         return "pedro1"
     return None

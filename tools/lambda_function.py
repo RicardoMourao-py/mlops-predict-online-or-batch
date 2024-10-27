@@ -9,6 +9,10 @@ image_latest = f"{os.getenv('AWS_ACCOUNT_ID')}.dkr.ecr.{os.getenv('AWS_REGION')}
 
 lambda_role_arn = os.getenv("AWS_LAMBDA_ROLE_ARN")
 
+environment_variables = {
+    "TOKEN_FASTAPI": os.getenv("TOKEN_FASTAPI"), # Update HERE
+}
+
 # Create a Boto3 client for AWS Lambda
 lambda_client = boto3.client(
     "lambda",
@@ -40,7 +44,8 @@ if lambda_exists:
     print("ATUALIZANDO FUNÇÃO !!!")
     response = lambda_client.update_function_code(
         FunctionName=lambda_name,
-        ImageUri=image_latest
+        ImageUri=image_latest,
+        Environment={"Variables": environment_variables}
     )
     print("FUNÇÃO ATUALIZADA !!!")
 
