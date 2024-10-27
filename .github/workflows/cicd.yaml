@@ -56,10 +56,6 @@ jobs:
           
       - name: Install dependencies
         run: pip install -r requirements.txt
-        
-      - name: Write Token
-        run: |
-          echo $TOKEN_FASTAPI > mlops-predict-online-or-batch/token.txt
 
       - name: Docker Build
         run: |
