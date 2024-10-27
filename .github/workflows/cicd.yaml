@@ -55,11 +55,11 @@ jobs:
 
       - name: Docker Tag
         run: |
-          docker tag mlops-batch-online:main $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/mlops-batch-online:latest
+          docker tag mlops-batch-online:main ${{ steps.login-ecr.outputs.registry }}/mlops-batch-online:latest
 
       - name: Docker Push
         run: |
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/mlops-batch-online:latest
+          docker push ${{ steps.login-ecr.outputs.registry }}/mlops-batch-online:latest
 
       - name: Deploy Lambda
         run: python tools/lambda_function.py
