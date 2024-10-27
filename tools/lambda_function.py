@@ -47,6 +47,12 @@ if lambda_exists:
         ImageUri=image_latest,
         Environment={"Variables": environment_variables}
     )
+
+    # Atualizar a configuração da função (variáveis de ambiente)
+    lambda_client.update_function_configuration(
+        FunctionName=lambda_name,
+        Environment={"Variables": environment_variables}
+    )
     print("FUNÇÃO ATUALIZADA !!!")
 
 else:
