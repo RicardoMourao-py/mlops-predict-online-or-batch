@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends, Body
+from fastapi import FastAPI, HTTPException, Depends, Body, Query
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 import pandas as pd
@@ -6,12 +6,18 @@ from mangum import Mangum
 from fastapi.staticfiles import StaticFiles
 import pickle
 import os
+import boto3
+from datetime import datetime
+import json
 
 app = FastAPI()
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
 bearer = HTTPBearer()
 ml_models = {}
+
+s3_client = boto3.client("s3")
+bucket_name = "bucket-mlops-predict-online"
 
 def load_encoder():
     with open("models/ohe.pkl", "rb") as f:
@@ -31,7 +37,7 @@ async def load_ml_models():
 def get_username_for_token(token):
     expected = os.environ.get("TOKEN_FASTAPI")
     if token == expected:
-        return "pedro1"
+        return True
     return None
 
 async def validate_token(credentials: HTTPAuthorizationCredentials = Depends(bearer)):
@@ -52,11 +58,15 @@ class Person(BaseModel):
     campaign: int
 
 @app.get("/")
-async def root(user=Depends(validate_token)):
+async def root(
+    username: str = Query(..., description="Nome de usuário"),
+    ok_token=Depends(validate_token)
+):
     return "Previsões em Lote e em Tempo Real!"
 
 @app.post("/predict-online")
 async def predict_online(
+    username: str = Query(..., description="Nome de usuário"),
     person: Person = Body(
         default={
             "age": 42,
@@ -69,20 +79,53 @@ async def predict_online(
             "campaign": 2,
         },
     ),
-    user=Depends(validate_token),
+    ok_token=Depends(validate_token),
 ):
+    
+    # Registro de data/hora da requisição
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # Enviar detalhes da requisição ao S3
+    request_log = {
+        "username": username,
+        "timestamp": timestamp,
+        "request_body": person.dict()
+    }
+
+    s3_client.put_object(
+        Bucket=bucket_name,
+        Key=f"logs/requests/{timestamp}_request.json",
+        Body=json.dumps(request_log)
+    )
+
     ohe = ml_models["ohe"]
     model = ml_models["models"]
     person_t = ohe.transform(pd.DataFrame([person.dict()]))
     pred = model.predict(person_t)[0]
 
+    # Enviar detalhes da predição ao S3
+    prediction_log = {
+        "username": username,
+        "timestamp": timestamp,
+        "prediction": str(pred)
+    }
+
+    s3_client.put_object(
+        Bucket=bucket_name,
+        Key=f"logs/predictions/{timestamp}_prediction.json",
+        Body=json.dumps(prediction_log)
+    )
+
     return {
         "prediction": str(pred),
-        "username": user["username"]
+        "username": username
     }
 
 @app.post("/predict-batch")
-async def predict_batch(user=Depends(validate_token)):
+async def predict_batch(
+    username: str = Query(..., description="Nome de usuário"),
+    ok_token=Depends(validate_token)
+):
     """
     Arquitetura de como funciona a predição em lote.
 
