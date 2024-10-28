@@ -10,7 +10,8 @@ image_latest = f"{os.getenv('AWS_ACCOUNT_ID')}.dkr.ecr.{os.getenv('AWS_REGION')}
 lambda_role_arn = os.getenv("AWS_LAMBDA_ROLE_ARN")
 
 environment_variables = {
-    "TOKEN_FASTAPI": os.getenv("TOKEN_FASTAPI"), # Update HERE
+    "TOKEN_FASTAPI": os.getenv("TOKEN_FASTAPI"),
+    "DESTINATION_SQS_URL": os.getenv("DESTINATION_SQS_URL")
 }
 
 # Create a Boto3 client for AWS Lambda

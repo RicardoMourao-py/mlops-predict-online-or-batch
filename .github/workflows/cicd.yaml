@@ -33,6 +33,7 @@ jobs:
       AWS_LAMBDA_ROLE_ARN: ${{ secrets.AWS_LAMBDA_ROLE_ARN }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
       TOKEN_FASTAPI: ${{ secrets.TOKEN_FASTAPI }}
+      DESTINATION_SQS_URL: ${{ secrets.DESTINATION_SQS_URL }}
     steps:
 
       - name: Checkout code
