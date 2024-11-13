@@ -11,12 +11,13 @@ from datetime import datetime
 import json
 from typing import Optional
 import numpy as np
+from mock_model import MockModel
 
 app = FastAPI()
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
 bearer = HTTPBearer()
-ml_models = {}
+model = MockModel()
 
 # Create an S3 client
 s3_client = boto3.client("s3")
@@ -26,14 +27,10 @@ bucket_name_batch= "bucket-mlops-predict-batch"
 # Create an SQS client
 sqs = boto3.client("sqs")
 
-def load_classifier():
-    with open("models/classifier.pkl", "rb") as f:
-        encoder = pickle.load(f)
-    return encoder
-
 @app.on_event("startup")
 async def load_ml_models():
-    ml_models["classifier"] = load_classifier()
+    global classifier
+    classifier = model.load("models/classifier.pkl")
 
 def get_username_for_token(token):
     expected = os.environ.get("TOKEN_FASTAPI")
@@ -120,9 +117,8 @@ async def predict_online(
             Key=f"logs/requests/{timestamp}_request.json",
             Body=json.dumps(request_log)
         )
-
-        classifier = ml_models["classifier"]
-        data = data.dict()
+        
+        data = person.dict()
         list_data=[data[key] for key in data.keys()]
         input_array=np.array([list_data])
 
@@ -211,8 +207,7 @@ async def predict_batch(
             Body=json.dumps(request_log)
         )
 
-        classifier = ml_models["classifier"]
-        data = data.dict()
+        data = person.dict()
         list_data=[data[key] for key in data.keys()]
         input_array=np.array([list_data])
 
