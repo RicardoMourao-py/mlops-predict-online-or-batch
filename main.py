@@ -52,7 +52,8 @@ de 20 até 79 anos
 """
 
 app = FastAPI(
-    title="Calculadora de Risco Genético (MLOps)"
+    title="Calculadora de Risco Genético (MLOps)",
+    description=description
 )
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
