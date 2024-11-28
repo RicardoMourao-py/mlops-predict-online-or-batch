@@ -16,9 +16,9 @@ Caso não use a interface e prefira executar a api por invocação, use a seguin
 
 > [!WARNING]
 > Observe que os campos abaixo devem ser preenchidos.
-> - PREDICT_TYPE: tipo da predição. Pode ser `predict-online` ou `predict-batch`.
-> - USER_NAME: Crie um username. (Ex: ricardomrf)
-> - TOKEN: Entre em contato com o responsável.
+> - **PREDICT_TYPE**: tipo da predição. Pode ser `predict-online` ou `predict-batch`.
+> - **USER_NAME**: Crie um username. (Ex: ricardomrf)
+> - **TOKEN**: Entre em contato com o responsável.
 
 ```
 curl -X 'POST' \
