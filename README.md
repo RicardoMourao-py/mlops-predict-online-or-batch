@@ -82,3 +82,13 @@ Existem três arquivos que podem ser alterados: [data_simulator.py](model/simula
 Estando tudo Ok, suas alterações serão aprovadas e implementadas via CI/CD.
 
 ## Infraestrutura
+Quando consultamos a api percebemos que é possível dois tipos de predição: em batch e on-line. 
+
+A previsão on-line é quando as previsões são geradas e retornadas assim que as solicitações para essas previsões são recebidas pelo serviço. A principal vantagem da previsão online é que ela facilita o fornecimento de uma experiência de usuário em tempo real.
+
+Enquanto isso, a previsão em batch (lote) é adequada para tarefas preditivas que não são em tempo real. Sendo assim, é possível processar e prever valores para grandes quantidades de dados em simultâneo. Ou seja, um modelo de aprendizado de máquina pode prever resultados para um conjunto de dados (lote) de uma vez, aumentando a eficiência em comparação com a previsão individual de cada ponto de dados.
+## Arquitetura de Predição Online
+![alt text](img/predict_online.png)
+
+## Arquitetura de Predição em Batch
+![alt text](img/predict_batch.png)
