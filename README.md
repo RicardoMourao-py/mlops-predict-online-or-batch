@@ -6,7 +6,7 @@ Este projeto segue práticas de MlOps para predições em lote ou em tempo real,
 A api está disponível publicamente no link abaixo:
 https://8goepcjo9c.execute-api.us-east-2.amazonaws.com/docs
 
-Imagem da API:
+![alt text](img/api_interface.png)
 
 Para ter acesso ao token de autenticação, entre em contato com ricardomrf@al.insper.edu.br
 
@@ -14,10 +14,12 @@ Para ter acesso ao token de autenticação, entre em contato com ricardomrf@al.i
 
 Caso não use a interface e prefira executar a api por invocação, use a seguinte chamada:
 
-Observe que os campos 
-- PREDICT_TYPE: tipo da predição. Pode ser `predict-online` ou `predict-batch`.
-- USER_NAME: Crie um username. (Ex: ricardomrf)
-- TOKEN: Entre em contato com o responsável.
+> [!WARNING]
+> Observe que os campos abaixo devem ser preenchidos.
+> - PREDICT_TYPE: tipo da predição. Pode ser `predict-online` ou `predict-batch`.
+> - USER_NAME: Crie um username. (Ex: ricardomrf)
+> - TOKEN: Entre em contato com o responsável.
+
 ```
 curl -X 'POST' \
   'https://8goepcjo9c.execute-api.us-east-2.amazonaws.com/{PREDICT_TYPE}?username={USER_NAME}' \
@@ -46,4 +48,5 @@ curl -X 'POST' \
 }'
 ```
 
-Para entender como preencher as informações contidas no body da requisição, leia o seguinte [dicionário de dados]().
+> [!NOTE]
+> Para entender como preencher as informações contidas no body da requisição, leia o seguinte [dicionário de dados]().
