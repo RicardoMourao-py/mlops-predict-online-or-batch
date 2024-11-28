@@ -50,3 +50,30 @@ curl -X 'POST' \
 
 > [!NOTE]
 > Para entender como preencher as informações contidas no body da requisição, leia o seguinte [dicionário de dados]().
+
+## Como contribuir
+
+Existem duas formas de contribuir: Melhorando a API ou melhorando o Modelo.
+
+### Melhorando a API
+O arquivo [main.py](main.py) tem todas funções necessárias para a implementação da API
+
+1. Com o repositório atualizado, crie sua branch a partir da branch `main`. 
+
+2. Faça suas alterações no arquivo [main.py](main.py).
+
+3. Suba suas alterações e crie um Pull Request. 
+
+Estando tudo Ok, suas alterações serão aprovadas e implementadas via CI/CD.
+
+### Melhorando o Modelo
+
+Existem três arquivos que podem ser alterados: [data_simulator.py](model\simulator\data_simulator.py), [mock_model.py](model\mock_model.py) e [train.py](model\train.py). Sendo assim:
+
+1. Com o repositório atualizado, crie sua branch a partir da branch `main`. 
+
+2. Faça suas alterações nos arquivos necessários.
+
+3. Suba suas alterações e crie um Pull Request. 
+
+Estando tudo Ok, suas alterações serão aprovadas e implementadas via CI/CD.
