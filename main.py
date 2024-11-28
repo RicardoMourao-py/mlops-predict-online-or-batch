@@ -13,7 +13,47 @@ from typing import Optional
 import numpy as np
 from model.mock_model import MockModel
 
-app = FastAPI()
+description = """
+Este projeto segue práticas de MlOps para predições em lote ou em tempo real, focado em um modelo que calcula o risco genético baseado em histórico hereditário do usuário. Para mais informações, acesse o [link](https://github.com/RicardoMourao-py/mlops-predict-online-or-batch).
+
+## Dicionário de Dados
+
+Segue as informações para preecher os campos do Body da requisição:
+
+- **onde_lesao, tipo_cancer_paciente, tipo_cancer_filho, tipo_cancer_pai, tipo_cancer_mae, tipo_cancer_avo_paterno, tipo_cancer_avo_paterna, tipo_cancer_avo_materno, tipo_cancer_avo_materna:**
+```
+-1: "Não sei se tenho"
+ 0:"Não sei onde começou"
+ 1:"Pulmão"
+ 2:"Ovário"
+ 3:"Estômago"
+ 4:"Pele"
+ 5:"Leucemia"
+ 6:"Intestino"
+ 7:"Cabeça e Pescoço"
+ 8:"Mama"
+ 9:"Próstata"
+ 10: "Tireóide"
+ 11: "Cerebral/sistema nervoso central"
+ 12: "Bexiga"
+ 13: "Linfoma"
+ 14: "Braços/pernas"
+ 15: "Outro"
+```
+- **vc_tem_lesao_atualmente, algum_filho_tem_ou_teve_cancer, pai_tem_ou_teve_cancer, mae_tem_ou_teve_cancer, avo_paterno_tem_ou_teve_cancer, avo_paterna_tem_ou_teve_cancer, avo_materno_tem_ou_teve_cancer, avo_materna_tem_ou_teve_cancer:**
+```
+0: Não
+1: Sim
+```
+- **idade_inicio_problema_atual**:
+```
+de 20 até 79 anos
+```
+"""
+
+app = FastAPI(
+    title="Calculadora de Risco Genético (MLOps)"
+)
 app.mount("/img", StaticFiles(directory="img"), name="img")
 
 bearer = HTTPBearer()
@@ -101,6 +141,12 @@ async def predict_online(
     ),
     ok_token=Depends(validate_token),
 ):
+    """
+    Arquitetura da predição on-line.
+
+    ![Arquitetura On-line](img/predict_online.png)
+    """
+
     try:
         # Registro de data/hora da requisição
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -185,9 +231,9 @@ async def predict_batch(
     ok_token=Depends(validate_token),
 ):
     """
-    Arquitetura de como funciona a predição em lote.
+    Arquitetura da predição em lote.
 
-    ![Arquitetura Batch](img/arquitetura_mlops.png)
+    ![Arquitetura Batch](img/predict_batch.png)
     """
 
     try:
