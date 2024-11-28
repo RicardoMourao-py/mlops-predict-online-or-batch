@@ -51,6 +51,9 @@ curl -X 'POST' \
 > [!NOTE]
 > Para entender como preencher as informações contidas no body da requisição, leia o seguinte [dicionário de dados](model/simulator/README.md#dicionario-de-dados).
 
+**Output**:
+![alt text](img/output.png)
+
 ## Como contribuir
 
 Existem duas formas de contribuir: Melhorando a API ou melhorando o Modelo.
