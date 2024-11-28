@@ -11,7 +11,7 @@ from datetime import datetime
 import json
 from typing import Optional
 import numpy as np
-from mock_model import MockModel
+from model.mock_model import MockModel
 
 app = FastAPI()
 app.mount("/img", StaticFiles(directory="img"), name="img")
@@ -30,7 +30,7 @@ sqs = boto3.client("sqs")
 @app.on_event("startup")
 async def load_ml_models():
     global classifier
-    classifier = model.load("models/classifier.pkl")
+    classifier = model.load("model/models/classifier.pkl")
 
 def get_username_for_token(token):
     expected = os.environ.get("TOKEN_FASTAPI")
