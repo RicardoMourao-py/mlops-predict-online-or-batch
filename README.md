@@ -1,3 +1,5 @@
+<a href="https://github.com/RicardoMourao-py/mlops-predict-online-or-batch/actions/workflows/cicd.yaml" target="_blank"><img src="https://github.com/RicardoMourao-py/mlops-predict-online-or-batch/actions/workflows/cicd.yaml/badge.svg" alt="Test"></a>
+
 # Calculadora de Risco Genético (MLOps)
 Este projeto segue práticas de MlOps para predições em lote ou em tempo real, focado em um modelo que calcula o risco genético baseado em histórico hereditário do usuário. Para mais informações, acesse o [link](model/README.md).
 
