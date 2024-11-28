@@ -4,7 +4,7 @@ on:
     branches: [ "main" ]
     types:
       - closed
-      
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -25,8 +25,22 @@ jobs:
           ls -la
           pwd
 
-  deploy-model:
+  data-simulation:
     needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Data Simulation
+        run: |
+          cd model/simulator
+          python data_simulator.py
+          cd ../..
+
+  deploy-model:
+    needs: data-simulation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
