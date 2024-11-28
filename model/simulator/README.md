@@ -1,0 +1,207 @@
+# Simulação de Dados
+
+Como não foi encontrado bases de dados solidificadas, os dados para treinamento do modelo foram simulados tentando estimar a realidade.
+
+Sendo assim, utiliza-se probabilidades randomizadas para a frequência de alelos dominantes e, diferenciando homem e mulher, as probabilidades de desenvolver cada um dos cânceres considerados pela simulação. Ademais, as probabilidades foram randomizadas de forma percentual em valores muito baixos, considerando o câncer como um evento raro para a população brasileira.
+
+Nesse sentido, é importante destacar e entender a visão geral da construção do simulador, para o desenvolvimento do algoritmo em Python. Sob esse viés, três definições precisam ser compreendidas para a construção do histórico familiar (heredograma) que são: geração dos genes dos avós, herança mendeliana e geração dos fenótipos.
+
+Por fim, há de se destacar também, algumas limitações referentes ao simulador:
+- Probabilidades escolhidas arbitrariamente (alelos, câncer);
+- Idade de ocorrência de câncer não é considerada na determinação da probabilidade de ocorrência de câncer;
+- Modelo de simulação não contempla dados faltantes, nem erros de dados;
+- Tios/tias, irmãos/irmãs e outros parentes não inclusos. Parentes de terceiro grau  também não são incluídos no simulador;
+- Informações de etnia e consanguinidade não são simuladas;
+- Informações de comorbidades e doenças passadas não são simuladas;
+
+
+# Dicionario de Dados
+
+- **vc_tem_lesao_atualmente**:
+    - 0: Não
+    - 1: Sim
+- **idade_inicio_problema_atual**: 
+    - de 20 até 79 anos
+- **onde_lesao**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **tipo_cancer_paciente**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **algum_filho_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_filho**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **pai_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_pai**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **mae_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_mae**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **avo_paterno_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_avo_paterno**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **avo_paterna_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_avo_paterna**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **avo_materno_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_avo_materno**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"
+- **avo_materna_tem_ou_teve_cancer**: 
+    - 0: Não
+    - 1: Sim
+- **tipo_cancer_avo_materna**: 
+    - -1: "Não sei se tenho"
+    -  0:"Não sei onde começou"
+    -  1:"Pulmão"
+    -  2:"Ovário"
+    -  3:"Estômago"
+    -  4:"Pele"
+    -  5:"Leucemia"
+    -  6:"Intestino"
+    -  7:"Cabeça e Pescoço"
+    -  8:"Mama"
+    -  9:"Próstata"
+    -  10: "Tireóide"
+    -  11: "Cerebral/sistema nervoso central"
+    -  12: "Bexiga"
+    -  13: "Linfoma"
+    -  14: "Braços/pernas"
+    -  15: "Outro"

@@ -1,5 +1,5 @@
 # Calculadora de Risco Genético (MLOps)
-Este projeto segue práticas de MlOps para predições em lote ou em tempo real, focado em um modelo que calcula o risco genético baseado em histórico hereditário do usuário. Para mais informações, acesse o [link](https://github.com/RicardoMourao-py/Cancer-Risk-Calculator).
+Este projeto segue práticas de MlOps para predições em lote ou em tempo real, focado em um modelo que calcula o risco genético baseado em histórico hereditário do usuário. Para mais informações, acesse o [link](model/README.md).
 
 ## Acesse a API
 
@@ -49,7 +49,7 @@ curl -X 'POST' \
 ```
 
 > [!NOTE]
-> Para entender como preencher as informações contidas no body da requisição, leia o seguinte [dicionário de dados]().
+> Para entender como preencher as informações contidas no body da requisição, leia o seguinte [dicionário de dados](model/simulator/README.md#dicionario-de-dados).
 
 ## Como contribuir
 
@@ -68,7 +68,7 @@ Estando tudo Ok, suas alterações serão aprovadas e implementadas via CI/CD.
 
 ### Melhorando o Modelo
 
-Existem três arquivos que podem ser alterados: [data_simulator.py](model\simulator\data_simulator.py), [mock_model.py](model\mock_model.py) e [train.py](model\train.py). Sendo assim:
+Existem três arquivos que podem ser alterados: [data_simulator.py](model/simulator/data_simulator.py), [mock_model.py](model/mock_model.py) e [train.py](model/train.py). Sendo assim:
 
 1. Com o repositório atualizado, crie sua branch a partir da branch `main`. 
 
@@ -77,3 +77,5 @@ Existem três arquivos que podem ser alterados: [data_simulator.py](model\simula
 3. Suba suas alterações e crie um Pull Request. 
 
 Estando tudo Ok, suas alterações serão aprovadas e implementadas via CI/CD.
+
+## Infraestrutura
